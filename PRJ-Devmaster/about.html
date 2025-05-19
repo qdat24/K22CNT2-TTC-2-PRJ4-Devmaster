@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeViet - Về Chúng Tôi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5;}
+        
+        /* Header */
+        .header {background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px 0; position: sticky; top: 0; z-index: 100;}
+        .container {max-width: 1200px; margin: 0 auto; padding: 0 20px;}
+        .nav-container {display: flex; justify-content: space-between; align-items: center;}
+        .logo {font-size: 24px; font-weight: bold; color: #0091ff;}
+        .logo span {color: #ff9800;}
+        .nav-links {display: flex; list-style: none;}
+        .nav-links li {margin-left: 20px;}
+        .nav-links a {text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s;}
+        .nav-links a:hover, .nav-links a.active {color: #0091ff;}
+        
+        /* Buttons */
+        .auth-buttons {display: flex; gap: 10px;}
+        .btn {padding: 8px 16px; border-radius: 4px; font-weight: 500; cursor: pointer; transition: all 0.3s; text-decoration: none;}
+        .btn-outline {border: 1px solid #0091ff; color: #0091ff; background: transparent;}
+        .btn-primary {background-color: #0091ff; color: #fff; border: 1px solid #0091ff;}
+        .btn:hover {opacity: 0.9;}
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0091ff 0%, #0070c5 100%);
+            color: #fff;
+            padding: 70px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* About Us Section */
+        .about-section {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: #0091ff;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h3 {
+            font-size: 24px;
+            color: #0091ff;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .mission-vision {
+            background-color: #f9f9f9;
+            padding: 50px 0;
+        }
+        
+        .mission-vision-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .mission-box, .vision-box {
+            flex: 1;
+            min-width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .mission-box:hover, .vision-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .box-icon {
+            font-size: 40px;
+            color: #0091ff;
+            margin-bottom: 20px;
+        }
+        
+        .mission-box h3, .vision-box h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .mission-box p, .vision-box p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* Founders Section */
+        .founders-section {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .founders-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .founders-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .founder-card {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .founder-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .founder-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .founder-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .founder-card:hover .founder-image img {
+            transform: scale(1.1);
+        }
+        
+        .founder-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .founder-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .founder-info h4 {
+            font-size: 16px;
+            color: #0091ff;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .founder-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            color: #333;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #0091ff;
+            color: #fff;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background-color: #0091ff;
+            padding: 50px 0;
+            color: #fff;
+        }
+        
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #0091ff;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #0091ff;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #aaa;
+            max-width: 1200px;
+            margin: 30px auto 0;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin: 15px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .about-content, .mission-vision-container {
+                flex-direction: column;
+            }
+            
+            .founder-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .stat-item {
+                min-width: 150px;
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">Free<span>Viet</span></div>
+            <ul class="nav-links">
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Tìm việc</a></li>
+                <li><a href="#">Dịch vụ</a></li>
+                <li><a href="#">Tuyển Freelancer</a></li>
+                <li><a href="#" class="active">Về chúng tôi</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline">Đăng nhập</a>
+                <a href="#" class="btn btn-primary">Đăng ký</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Về Chúng Tôi</h1>
+            <p>Khám phá câu chuyện, sứ mệnh và đội ngũ đứng sau nền tảng FreeViet</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-container container">
+            <div class="section-title">
+                <h2>Câu Chuyện Của Chúng Tôi</h2>
+                <p>Hành trình xây dựng cộng đồng freelancer lớn mạnh tại Việt Nam</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Đội ngũ FreeViet làm việc">
+                </div>
+                <div class="about-text">
+                    <h3>FreeViet - Nền tảng freelancer hàng đầu Việt Nam</h3>
+                    <p>FreeViet được thành lập vào năm 2022 bởi ba người bạn đại học với niềm đam mê công nghệ và khát vọng tạo ra một nền tảng kết nối freelancer chuyên nghiệp với các doanh nghiệp và cá nhân tại Việt Nam.</p>
+                    <p>Chúng tôi nhận thấy tiềm năng to lớn của thị trường freelancer tại Việt Nam, nhưng đồng thời cũng thấy được những khó khăn mà cả freelancer và nhà tuyển dụng đang gặp phải. Từ đó, FreeViet ra đời với mục tiêu tạo ra một hệ sinh thái minh bạch, an toàn, và hiệu quả cho cộng đồng làm việc tự do tại Việt Nam.</p>
+                    <p>Sau hơn 2 năm hoạt động, FreeViet đã trở thành ngôi nhà chung của hơn 10,000 freelancer tài năng và 5,000 doanh nghiệp, với hơn 25,000 dự án thành công được thực hiện. Chúng tôi tự hào khi được đồng hành cùng sự phát triển của cộng đồng freelancer Việt Nam và góp phần thúc đẩy nền kinh tế số của đất nước.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mission & Vision Section -->
+    <section class="mission-vision">
+        <div class="mission-vision-container container">
+            <div class="mission-box">
+                <div class="box-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Sứ mệnh</h3>
+                <p>Kết nối các freelancer tài năng tại Việt Nam với các cơ hội việc làm chất lượng cao, tạo ra môi trường làm việc công bằng, minh bạch và hiệu quả cho tất cả các bên tham gia. Chúng tôi cam kết phát triển một cộng đồng freelancer chuyên nghiệp, nâng cao vị thế của lao động tự do trong nền kinh tế số Việt Nam.</p>
+            </div>
+            
+            <div class="vision-box">
+                <div class="box-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Tầm nhìn</h3>
+                <p>Trở thành nền tảng kết nối freelancer hàng đầu tại Việt Nam và khu vực Đông Nam Á, đồng thời là đối tác đáng tin cậy của mọi doanh nghiệp và cá nhân có nhu cầu thuê dịch vụ freelance. Chúng tôi hướng đến việc đưa tài năng Việt Nam vươn tầm quốc tế và góp phần xây dựng tương lai của công việc.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Founders Section -->
+    <section class="founders-section">
+        <div class="founders-container container">
+            <div class="section-title">
+                <h2>Đội Ngũ Sáng Lập</h2>
+                <p>Gặp gỡ những người đứng sau thành công của FreeViet</p>
+            </div>
+            
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="founder-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Nguyễn Minh Đức">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Đinh Quốc Đạt</h3>
+                        <h4>Đồng sáng lập & CEO</h4>
+                        <p>Cựu sinh viên ĐH Bách Khoa Hà Nội với hơn 10 năm kinh nghiệm trong lĩnh vực công nghệ. Trước khi thành lập FreeViet, Đức từng là Giám đốc Kỹ thuật tại một công ty phần mềm hàng đầu.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="founder-card">
+                    <div class="founder-image">
+                        <img src="https://th.bing.com/th/id/R.bca3dff71754b64a548484444c50f57c?rik=NoVSTJegb%2b4k5g&pid=ImgRaw&r=0" alt="Trần Thanh Hà">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Bùi Sơn Tùng</h3>
+                        <h4>Đồng sáng lập & COO</h4>
+                        <p>Tốt nghiệp Thạc sĩ Quản trị Kinh doanh tại ĐH Kinh tế TP.HCM. Hà có hơn 8 năm kinh nghiệm trong lĩnh vực phát triển kinh doanh và vận hành tại các công ty khởi nghiệp công nghệ.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="founder-card">
+                    <div class="founder-image">
+                        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80" alt="Lê Hoàng Nam">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Nguyễn Phú Nam</h3>
+                        <h4>Đồng sáng lập & CTO</h4>
+                        <p>Chuyên gia công nghệ với bằng Thạc sĩ Khoa học Máy tính từ ĐH Stanford. Nam có kinh nghiệm làm việc tại các tập đoàn công nghệ lớn ở Silicon Valley trước khi trở về Việt Nam đồng sáng lập FreeViet.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container container">
+            <div class="stat-item">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-text">Freelancer</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">5,000+</div>
+                <div class="stat-text">Doanh nghiệp</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">25,000+</div>
+                <div class="stat-text">Dự án thành công</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">4.8/5</div>
+                <div class="stat-text">Đánh giá trung bình</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="footer-column">
+                <h3>FreeViet</h3>
+                <p>Nền tảng kết nối freelancer và nhà tuyển dụng hàng đầu tại Việt Nam. Chúng tôi giúp các doanh nghiệp tìm kiếm tài năng và freelancer tìm kiếm cơ hội.</p>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liên kết nhanh</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Tìm việc</a></li>
+                    <li><a href="#">Tuyển Freelancer</a></li>
+                    <li><a href="#">Dịch vụ</a></li>
+                    <li><a href="#">Về chúng tôi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Danh mục</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Lập trình & IT</a></li>
+                    <li><a href="#">Thiết kế & Sáng tạo</a></li>
+                    <li><a href="#">Marketing & SEO</a></li>
+                    <li><a href="#">Viết & Dịch thuật</a></li>
+                    <li><a href="#">Video & Hình ảnh</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liên hệ</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP. Hồ Chí Minh</li>
+                    <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
+                    <li><i class="fas fa-envelope"></i> info@freeviet.vn</li>
+                </ul>
+                <div class="social-links" style="margin-top: 15px;">
+                    <a href="#" style="color: #fff; margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" style="color: #fff; margin-right: 15px;"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="color: #fff; margin-right: 15px;"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" style="color: #fff;"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 FreeViet. Tất cả các quyền được bảo lưu.
+        </div>
+    </footer>
+</body>
+</html>
