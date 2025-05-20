@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeViet - Tuyển Freelancer</title>
+    <title>FreeViet - Trang Tìm Việc Freelancer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box;}
@@ -32,6 +33,15 @@
         .hero {background: linear-gradient(135deg, #0091ff 0%, #0070c5 100%); color: #fff; padding: 60px 0; text-align: center;}
         .hero h1 {font-size: 36px; margin-bottom: 15px; font-weight: 700;}
         .hero p {font-size: 18px; max-width: 700px; margin: 0 auto 25px; opacity: 0.9;}
+        
+        /* Search Bar */
+        .search-container {background-color: #fff; border-radius: 8px; max-width: 800px; margin: 30px auto 0; 
+                          padding: 5px; display: flex; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
+        .search-input {flex: 1; padding: 12px 15px; border: none; font-size: 16px; outline: none;}
+        .search-select {padding: 12px 15px; border: none; background-color: #fff; border-left: 1px solid #eee; outline: none;}
+        .search-btn {background-color: #0091ff; color: #fff; border: none; padding: 12px 25px; 
+                    border-radius: 4px; font-weight: 500; cursor: pointer; transition: background-color 0.3s;}
+        .search-btn:hover {background-color: #007cd9;}
         
         /* Sections */
         .section {padding: 50px 0;}
@@ -81,6 +91,10 @@
         .step-icon {font-size: 36px; color: #0091ff; margin: 10px 0;}
         .step-card h3 {margin-bottom: 10px;}
         
+        /* Call to Action */
+        .cta-section {text-align: center; padding: 50px 0;}
+        .cta-buttons {display: flex; gap: 15px; justify-content: center; margin-top: 25px; flex-wrap: wrap;}
+        
         /* Footer */
         .footer {background-color: #333; color: #fff; padding: 40px 0 20px;}
         .footer-content {display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px;}
@@ -91,6 +105,11 @@
         .footer-links li {margin-bottom: 10px;}
         .footer-links a {color: #ccc; text-decoration: none; transition: color 0.3s;}
         .footer-links a:hover {color: #0091ff;}
+        
+        .social-links {display: flex; gap: 15px; margin-top: 15px;}
+        .social-link {color: #fff; margin-right: 15px; text-decoration: none; transition: color 0.3s;}
+        .social-link:hover {color: #0091ff;}
+        
         .copyright {text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 14px; color: #aaa;}
         
         /* Text alignment */
@@ -112,30 +131,39 @@
 </head>
 <body>
     <!-- Header -->
-   <!-- Header -->
-   <header class="header">
-    <div class="container nav-container">
-        <div class="logo">Free<span>Viet</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">Trang chủ</a></li>
-            <li><a href="findjob.html">Tìm việc</a></li>
-            <li><a href="service.html">Dịch vụ</a></li>
-            <li><a href="recruitment.html" class="active">Tuyển Freelancers</a></li>
-            <li><a href="about.html">Về chúng tôi</a></li>
-        </ul>
-        <div class="auth-buttons">
-            <a href="login.html" class="btn btn-outline">Đăng nhập</a>
-            <a href="register.html" class="btn btn-primary">Đăng ký</a>
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">Free<span>Viet</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Trang chủ</a></li>
+                <li><a href="findjob.html">Tìm việc</a></li>
+                <li><a href="service.html">Dịch vụ</a></li>
+                <li><a href="recruitment.html">Tuyển Freelancers</a></li>
+                <li><a href="about.html">Về chúng tôi</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline">Đăng nhập</a>
+                <a href="#" class="btn btn-primary">Đăng ký</a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <h1>Tuyển dụng Freelancer chất lượng cao</h1>
-            <p>Kết nối với hàng nghìn freelancer chuyên nghiệp tại Việt Nam để hoàn thành dự án của bạn.</p>
-            <a href="postrecruitment.html" class="btn btn-primary btn-large">Đăng tin tuyển dụng</a>
+            <h1>Tìm việc freelance phù hợp với bạn</h1>
+            <p>Kết nối với hàng nghìn cơ hội việc làm từ các doanh nghiệp hàng đầu tại Việt Nam</p>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Tìm kiếm công việc, kỹ năng...">
+                <select class="search-select">
+                    <option value="">Tất cả lĩnh vực</option>
+                    <option value="it">Lập trình & IT</option>
+                    <option value="design">Thiết kế & Sáng tạo</option>
+                    <option value="marketing">Marketing & SEO</option>
+                    <option value="writing">Viết & Dịch thuật</option>
+                </select>
+                <button class="search-btn">Tìm kiếm</button>
+            </div>
         </div>
     </section>
 
@@ -144,41 +172,33 @@
         <div class="container">
             <div class="section-title">
                 <h2>Lĩnh vực nổi bật</h2>
-                <p>Khám phá các lĩnh vực freelance phổ biến và tìm kiếm những tài năng phù hợp</p>
+                <p>Khám phá các lĩnh vực freelance phổ biến và tìm kiếm những cơ hội phù hợp</p>
             </div>
             
             <div class="categories">
-                <a href="category-programming.html" style="text-decoration: none; color: inherit;">
-                    <div class="category-card">
-                        <div class="category-icon"><i class="fas fa-code"></i></div>
-                        <h3>Lập trình & IT</h3>
-                        <p>Web, Mobile, Desktop, Game, Backend, Frontend, Full-stack</p>
-                    </div>
-                </a>
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-code"></i></div>
+                    <h3>Lập trình & IT</h3>
+                    <p>Web, Mobile, Desktop, Game, Backend, Frontend, Full-stack</p>
+                </div>
                 
-                <a href="category-design.html" style="text-decoration: none; color: inherit;">
-                    <div class="category-card">
-                        <div class="category-icon"><i class="fas fa-paint-brush"></i></div>
-                        <h3>Thiết kế & Sáng tạo</h3>
-                        <p>UI/UX, Đồ họa, Logo, Banner, Hình ảnh, Video</p>
-                    </div>
-                </a>
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>Thiết kế & Sáng tạo</h3>
+                    <p>UI/UX, Đồ họa, Logo, Banner, Hình ảnh, Video</p>
+                </div>
                 
-                <a href="category-marketing.html" style="text-decoration: none; color: inherit;">
-                    <div class="category-card">
-                        <div class="category-icon"><i class="fas fa-bullhorn"></i></div>
-                        <h3>Marketing & SEO</h3>
-                        <p>Content, Social Media, Digital Marketing, SEO, SEM</p>
-                    </div>
-                </a>
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h3>Marketing & SEO</h3>
+                    <p>Content, Social Media, Digital Marketing, SEO, SEM</p>
+                </div>
                 
-                <a href="category-writing.html" style="text-decoration: none; color: inherit;">
-                    <div class="category-card">
-                        <div class="category-icon"><i class="fas fa-language"></i></div>
-                        <h3>Viết & Dịch thuật</h3>
-                        <p>Content, Copywriting, Biên dịch, Viết bài</p>
-                    </div>
-                </a>
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-language"></i></div>
+                    <h3>Viết & Dịch thuật</h3>
+                    <p>Content, Copywriting, Biên dịch, Viết bài</p>
+                </div>
             </div>
         </div>
     </section>
@@ -187,7 +207,7 @@
     <section class="section section-dark">
         <div class="container">
             <div class="section-title">
-                <h2>Tin tuyển dụng mới nhất</h2>
+                <h2>Việc làm mới nhất</h2>
                 <p>Khám phá các cơ hội làm việc freelance mới nhất từ các công ty và cá nhân</p>
             </div>
             
@@ -220,65 +240,88 @@
                 </div>
                 
                 <!-- Job Card 1 -->
-                <a href="job-detail-web-design.html" style="text-decoration: none; color: inherit;">
-                    <div class="job-card">
-                        <div class="job-header">
-                            <div>
-                                <h3 class="job-title">Thiết kế website bán hàng thời trang</h3>
-                                <p class="job-company">Fashion Store</p>
-                                <p class="job-location"><i class="fas fa-map-marker-alt"></i> Hà Nội</p>
-                            </div>
-                            <div class="job-price">10.000.000đ</div>
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Thiết kế website bán hàng thời trang</h3>
+                            <p class="job-company">Fashion Store</p>
+                            <p class="job-location"><i class="fas fa-map-marker-alt"></i> Hà Nội</p>
                         </div>
-                        
-                        <div class="job-tags">
-                            <span class="job-tag">UI/UX Design</span>
-                            <span class="job-tag">WordPress</span>
-                            <span class="job-tag">E-commerce</span>
-                        </div>
-                        
-                        <div class="job-description">
-                            Cần thiết kế website bán hàng thời trang với giao diện hiện đại, responsive trên mọi thiết bị. Yêu cầu có kinh nghiệm làm việc với WordPress và WooCommerce.
-                        </div>
-                        
-                        <div class="job-footer">
-                            <div class="job-posted">Đăng 2 ngày trước</div>
-                            <a href="bid-form.html" class="btn btn-primary">Đặt giá</a>
-                        </div>
+                        <div class="job-price">10.000.000đ</div>
                     </div>
-                </a>
+                    
+                    <div class="job-tags">
+                        <span class="job-tag">UI/UX Design</span>
+                        <span class="job-tag">WordPress</span>
+                        <span class="job-tag">E-commerce</span>
+                    </div>
+                    
+                    <div class="job-description">
+                        Cần thiết kế website bán hàng thời trang với giao diện hiện đại, responsive trên mọi thiết bị. Yêu cầu có kinh nghiệm làm việc với WordPress và WooCommerce.
+                    </div>
+                    
+                    <div class="job-footer">
+                        <div class="job-posted">Đăng 2 ngày trước</div>
+                        <a href="#" class="btn btn-primary">Ứng tuyển</a>
+                    </div>
+                </div>
                 
                 <!-- Job Card 2 -->
-                <a href="job-detail-content.html" style="text-decoration: none; color: inherit;">
-                    <div class="job-card">
-                        <div class="job-header">
-                            <div>
-                                <h3 class="job-title">Viết content cho blog công nghệ</h3>
-                                <p class="job-company">Tech Magazine</p>
-                                <p class="job-location"><i class="fas fa-map-marker-alt"></i> Toàn quốc</p>
-                            </div>
-                            <div class="job-price">200.000đ/bài</div>
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Viết content cho blog công nghệ</h3>
+                            <p class="job-company">Tech Magazine</p>
+                            <p class="job-location"><i class="fas fa-map-marker-alt"></i> Toàn quốc</p>
                         </div>
-                        
-                        <div class="job-tags">
-                            <span class="job-tag">Content Writing</span>
-                            <span class="job-tag">SEO</span>
-                            <span class="job-tag">Technology</span>
-                        </div>
-                        
-                        <div class="job-description">
-                            Cần người viết bài cho blog công nghệ với các chủ đề liên quan đến công nghệ mới, smartphone, laptop. Mỗi bài viết từ 1000-1500 từ.
-                        </div>
-                        
-                        <div class="job-footer">
-                            <div class="job-posted">Đăng 1 ngày trước</div>
-                            <a href="bid-form.html" class="btn btn-primary">Đặt giá</a>
-                        </div>
+                        <div class="job-price">200.000đ/bài</div>
                     </div>
-                </a>
+                    
+                    <div class="job-tags">
+                        <span class="job-tag">Content Writing</span>
+                        <span class="job-tag">SEO</span>
+                        <span class="job-tag">Technology</span>
+                    </div>
+                    
+                    <div class="job-description">
+                        Cần người viết bài cho blog công nghệ với các chủ đề liên quan đến công nghệ mới, smartphone, laptop. Mỗi bài viết từ 1000-1500 từ.
+                    </div>
+                    
+                    <div class="job-footer">
+                        <div class="job-posted">Đăng 1 ngày trước</div>
+                        <a href="#" class="btn btn-primary">Ứng tuyển</a>
+                    </div>
+                </div>
+                
+                <!-- Job Card 3 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Phát triển ứng dụng mobile React Native</h3>
+                            <p class="job-company">AppDev Solutions</p>
+                            <p class="job-location"><i class="fas fa-map-marker-alt"></i> TP.HCM</p>
+                        </div>
+                        <div class="job-price">15.000.000đ/tháng</div>
+                    </div>
+                    
+                    <div class="job-tags">
+                        <span class="job-tag">React Native</span>
+                        <span class="job-tag">JavaScript</span>
+                        <span class="job-tag">Mobile Dev</span>
+                    </div>
+                    
+                    <div class="job-description">
+                        Dự án phát triển ứng dụng giao hàng sử dụng React Native. Yêu cầu có ít nhất 2 năm kinh nghiệm với React Native và làm việc được remote toàn thời gian.
+                    </div>
+                    
+                    <div class="job-footer">
+                        <div class="job-posted">Đăng 3 giờ trước</div>
+                        <a href="#" class="btn btn-primary">Ứng tuyển</a>
+                    </div>
+                </div>
                 
                 <div class="text-center" style="margin-top: 30px;">
-                    <a href="all-jobs.html" class="btn btn-outline">Xem thêm tin tuyển dụng</a>
+                    <a href="#" class="btn btn-outline">Xem thêm việc làm</a>
                 </div>
             </div>
         </div>
@@ -288,53 +331,53 @@
     <section class="section section-light">
         <div class="container">
             <div class="section-title">
-                <h2>Quy trình tuyển dụng</h2>
-                <p>Chỉ với 4 bước đơn giản, bạn có thể tìm được freelancer phù hợp cho dự án của mình</p>
+                <h2>Cách thức hoạt động</h2>
+                <p>Chỉ với 4 bước đơn giản để bắt đầu công việc freelance của bạn</p>
             </div>
             
             <div class="steps-container">
                 <div class="step-card">
                     <div class="step-number">1</div>
-                    <div class="step-icon"><i class="fas fa-edit"></i></div>
-                    <h3>Đăng tin tuyển dụng</h3>
-                    <p>Mô tả chi tiết dự án, yêu cầu kỹ năng và ngân sách của bạn</p>
+                    <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Tạo hồ sơ</h3>
+                    <p>Đăng ký và hoàn thiện hồ sơ với thông tin và kỹ năng của bạn</p>
                 </div>
                 
                 <div class="step-card">
                     <div class="step-number">2</div>
-                    <div class="step-icon"><i class="fas fa-users"></i></div>
-                    <h3>Nhận báo giá</h3>
-                    <p>Các freelancer sẽ gửi báo giá và portfolio để bạn xem xét</p>
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <h3>Tìm việc</h3>
+                    <p>Tìm kiếm và ứng tuyển vào các dự án phù hợp với kỹ năng của bạn</p>
                 </div>
                 
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3>Lựa chọn freelancer</h3>
-                    <p>Đánh giá và chọn freelancer phù hợp với dự án của bạn</p>
+                    <h3>Được thuê</h3>
+                    <p>Nhận dự án và thảo luận chi tiết với khách hàng</p>
                 </div>
                 
                 <div class="step-card">
                     <div class="step-number">4</div>
-                    <div class="step-icon"><i class="fas fa-handshake"></i></div>
-                    <h3>Hoàn thành dự án</h3>
-                    <p>Làm việc và thanh toán an toàn qua hệ thống FreeViet</p>
+                    <div class="step-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Nhận thanh toán</h3>
+                    <p>Hoàn thành công việc và nhận thanh toán an toàn qua hệ thống</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action -->
-    <section class="section section-dark text-center">
+    <section class="section section-dark cta-section">
         <div class="container">
             <div class="section-title">
-                <h2>Sẵn sàng bắt đầu dự án của bạn?</h2>
-                <p>Đăng tin tuyển dụng miễn phí ngay hôm nay và kết nối với những freelancer tài năng</p>
+                <h2>Sẵn sàng bắt đầu sự nghiệp freelance của bạn?</h2>
+                <p>Đăng ký miễn phí ngay hôm nay và khám phá hàng nghìn cơ hội làm việc</p>
             </div>
             
             <div class="cta-buttons">
-                <a href="post-job.html" class="btn btn-primary btn-large">Đăng tin tuyển dụng</a>
-                <a href="how-it-works.html" class="btn btn-outline btn-large">Tìm hiểu thêm</a>
+                <a href="#" class="btn btn-primary btn-large">Đăng ký ngay</a>
+                <a href="#" class="btn btn-outline btn-large">Tìm hiểu thêm</a>
             </div>
         </div>
     </section>
@@ -346,25 +389,30 @@
                 <div class="footer-column">
                     <h3>FreeViet</h3>
                     <p>Nền tảng kết nối freelancer và nhà tuyển dụng hàng đầu tại Việt Nam.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
                 
                 <div class="footer-column">
                     <h3>Liên kết nhanh</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">Trang chủ</a></li>
-                        <li><a href="findjob.html">Tìm việc</a></li>
-                        <li><a href="recruitment.html">Tuyển Freelancer</a></li>
-                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Tìm việc</a></li>
+                        <li><a href="#">Freelancers</a></li>
+                        <li><a href="#">Về chúng tôi</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h3>Danh mục</h3>
                     <ul class="footer-links">
-                        <li><a href="category-programming.html">Lập trình & IT</a></li>
-                        <li><a href="category-design.html">Thiết kế & Sáng tạo</a></li>
-                        <li><a href="category-marketing.html">Marketing & SEO</a></li>
-                        <li><a href="category-writing.html">Viết & Dịch thuật</a></li>
+                        <li><a href="#">Lập trình & IT</a></li>
+                        <li><a href="#">Thiết kế & Sáng tạo</a></li>
+                        <li><a href="#">Marketing & SEO</a></li>
+                        <li><a href="#">Viết & Dịch thuật</a></li>
                     </ul>
                 </div>
                 
@@ -375,11 +423,6 @@
                         <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
                         <li><i class="fas fa-envelope"></i> info@freeviet.vn</li>
                     </ul>
-                    <div class="social-links" style="margin-top: 15px;">
-                        <a href="https://facebook.com/freeviet" style="color: #fff; margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://linkedin.com/company/freeviet" style="color: #fff; margin-right: 15px;"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com/freeviet" style="color: #fff;"><i class="fab fa-instagram"></i></a>
-                    </div>
                 </div>
             </div>
             
@@ -391,11 +434,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý lọc
             const filterSelects = document.querySelectorAll('.filter-select');
             filterSelects.forEach(select => {
                 select.addEventListener('change', function() {
                     console.log('Filter changed:', this.value);
+                    // Ở đây sẽ là logic xử lý lọc dữ liệu
                 });
+            });
+            
+            // Xử lý nút tìm kiếm
+            const searchBtn = document.querySelector('.search-btn');
+            searchBtn.addEventListener('click', function() {
+                const keyword = document.querySelector('.search-input').value;
+                const category = document.querySelector('.search-select').value;
+                console.log('Searching for:', keyword, 'in category:', category);
+                // Ở đây sẽ là logic xử lý tìm kiếm
+            });
+            
+            // Xử lý nút xem thêm
+            const loadMoreBtn = document.querySelector('.btn-outline');
+            loadMoreBtn.addEventListener('click', function(e) {
+                if (this.textContent === 'Xem thêm việc làm') {
+                    e.preventDefault();
+                    console.log('Loading more jobs...');
+                    // Ở đây sẽ là logic tải thêm việc làm
+                }
             });
         });
     </script>

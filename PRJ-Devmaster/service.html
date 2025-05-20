@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeViet - Dịch Vụ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5;}
+        
+        /* Header */
+        .header {background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px 0; position: sticky; top: 0; z-index: 100;}
+        .container {max-width: 1200px; margin: 0 auto; padding: 0 20px;}
+        .nav-container {display: flex; justify-content: space-between; align-items: center;}
+        .logo {font-size: 24px; font-weight: bold; color: #0091ff;}
+        .logo span {color: #ff9800;}
+        .nav-links {display: flex; list-style: none;}
+        .nav-links li {margin-left: 20px;}
+        .nav-links a {text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s;}
+        .nav-links a:hover, .nav-links a.active {color: #0091ff;}
+        
+        /* Buttons */
+        .auth-buttons {display: flex; gap: 10px;}
+        .btn {padding: 8px 16px; border-radius: 4px; font-weight: 500; cursor: pointer; transition: all 0.3s; text-decoration: none;}
+        .btn-outline {border: 1px solid #0091ff; color: #0091ff; background: transparent;}
+        .btn-primary {background-color: #0091ff; color: #fff; border: 1px solid #0091ff;}
+        .btn:hover {opacity: 0.9;}
+        .btn-large {padding: 12px 28px; font-size: 16px;}
+        
+        /* Page Banner */
+        .page-banner {background: linear-gradient(135deg, #0091ff 0%, #0070c5 100%); color: #fff; padding: 50px 0; text-align: center;}
+        .page-banner h1 {font-size: 36px; margin-bottom: 15px; font-weight: 700;}
+        .page-banner p {font-size: 18px; max-width: 700px; margin: 0 auto; opacity: 0.9;}
+        
+        /* Sections */
+        .section {padding: 60px 0;}
+        .section-light {background-color: #fff;}
+        .section-dark {background-color: #f9f9f9;}
+        .section-title {text-align: center; margin-bottom: 40px;}
+        .section-title h2 {font-size: 30px; color: #333; margin-bottom: 10px;}
+        .section-title p {color: #666; max-width: 700px; margin: 0 auto;}
+        
+        /* Service Cards */
+        .services-container {display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 40px;}
+        .service-card {background-color: #fff; border-radius: 8px; overflow: hidden; width: 350px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s;}
+        .service-card:hover {transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1);}
+        .service-img {height: 200px; overflow: hidden;}
+        .service-img img {width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;}
+        .service-card:hover .service-img img {transform: scale(1.1);}
+        .service-content {padding: 25px;}
+        .service-title {font-size: 20px; margin-bottom: 10px; color: #0091ff;}
+        .service-description {color: #666; margin-bottom: 15px;}
+        .service-price {font-weight: bold; color: #28a745; margin-bottom: 15px; font-size: 18px;}
+        
+        /* Features */
+        .features-container {display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;}
+        .feature-item {background-color: #fff; border-radius: 8px; padding: 30px; width: 350px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center;}
+        .feature-icon {font-size: 40px; color: #0091ff; margin-bottom: 20px;}
+        .feature-title {font-size: 18px; margin-bottom: 15px;}
+        .feature-description {color: #666;}
+        
+        /* Pricing */
+        .pricing-container {display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin: 40px 0;}
+        .pricing-card {background-color: #fff; border-radius: 8px; overflow: hidden; width: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s;}
+        .pricing-card:hover {transform: translateY(-5px);}
+        .pricing-header {background-color: #0091ff; color: #fff; padding: 20px; text-align: center;}
+        .pricing-title {font-size: 22px; margin-bottom: 5px;}
+        .pricing-price {font-size: 36px; font-weight: bold;}
+        .pricing-period {font-size: 14px; opacity: 0.8;}
+        .pricing-features {list-style: none; padding: 30px; text-align: center;}
+        .pricing-features li {margin-bottom: 15px; color: #666;}
+        .pricing-features li i {color: #0091ff; margin-right: 8px;}
+        .pricing-footer {text-align: center; padding-bottom: 30px;}
+
+        /* Special Pricing */
+        .pricing-card.featured {border: 2px solid #0091ff;}
+        .pricing-header.featured {background-color: #ff9800;}
+        
+        /* FAQs */
+        .faq-container {max-width: 800px; margin: 0 auto;}
+        .faq-item {background-color: #fff; border-radius: 8px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+        .faq-question {padding: 20px; background-color: #f9f9f9; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;}
+        .faq-question i {transition: transform 0.3s;}
+        .faq-answer {padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease;}
+        .faq-answer p {padding: 20px 0;}
+        .faq-item.active .faq-question {color: #0091ff;}
+        .faq-item.active .faq-question i {transform: rotate(180deg);}
+        .faq-item.active .faq-answer {max-height: 1000px;}
+        
+        /* CTA */
+        .cta-section {text-align: center; padding: 60px 0; background: linear-gradient(135deg, #0091ff 0%, #0070c5 100%); color: #fff;}
+        .cta-title {font-size: 32px; margin-bottom: 20px;}
+        .cta-description {font-size: 18px; max-width: 700px; margin: 0 auto 30px; opacity: 0.9;}
+        .cta-buttons {display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;}
+        .cta-btn-white {background-color: #fff; color: #0091ff; padding: 12px 28px; border-radius: 4px; font-weight: 600; text-decoration: none; transition: all 0.3s;}
+        .cta-btn-white:hover {background-color: #f5f5f5; transform: translateY(-3px);}
+        .cta-btn-outline {background: transparent; color: #fff; border: 2px solid #fff; padding: 12px 28px; border-radius: 4px; font-weight: 600; text-decoration: none; transition: all 0.3s;}
+        .cta-btn-outline:hover {background-color: rgba(255,255,255,0.1); transform: translateY(-3px);}
+        
+        /* Footer */
+        .footer {background-color: #333; color: #fff; padding: 40px 0 20px;}
+        .footer-content {display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px;}
+        .footer-column {width: 240px; margin-bottom: 20px;}
+        .footer-column h3 {font-size: 18px; margin-bottom: 15px; position: relative; padding-bottom: 10px;}
+        .footer-column h3::after {content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #0091ff;}
+        .footer-links {list-style: none;}
+        .footer-links li {margin-bottom: 10px;}
+        .footer-links a {color: #ccc; text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover {color: #0091ff;}
+        
+        .social-links {display: flex; gap: 15px; margin-top: 15px;}
+        .social-link {color: #fff; margin-right: 15px; text-decoration: none; transition: color 0.3s;}
+        .social-link:hover {color: #0091ff;}
+        
+        .copyright {text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 14px; color: #aaa;}
+        
+        /* Contact Form */
+        .contact-form {background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);}
+        .form-group {margin-bottom: 20px;}
+        .form-label {display: block; margin-bottom: 8px; font-weight: 500;}
+        .form-control {width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 16px;}
+        .form-control:focus {outline: none; border-color: #0091ff;}
+        .form-submit {background-color: #0091ff; color: #fff; border: none; padding: 12px 25px; border-radius: 4px; font-weight: 500; cursor: pointer; transition: background-color 0.3s;}
+        .form-submit:hover {background-color: #007cd9;}
+        
+        /* Two column layout */
+        .flex-container {display: flex; flex-wrap: wrap; gap: 30px;}
+        .flex-column {flex: 1;}
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .nav-container {flex-direction: column;}
+            .nav-links {margin: 15px 0; flex-wrap: wrap; justify-content: center;}
+            .nav-links li {margin: 5px 10px;}
+            .page-banner h1 {font-size: 28px;}
+            .service-card, .feature-item, .pricing-card {width: 100%; max-width: 350px;}
+            .flex-container {flex-direction: column;}
+            .flex-column {width: 100%;}
+            .cta-buttons {flex-direction: column; align-items: center;}
+            .footer-column {width: 100%; text-align: center;}
+            .footer-column h3::after {left: 50%; transform: translateX(-50%);}
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+   <!-- Header -->
+   <header class="header">
+    <div class="container nav-container">
+        <div class="logo">Free<span>Viet</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Trang chủ</a></li>
+            <li><a href="findjob.html">Tìm việc</a></li>
+            <li><a href="service.html">Dịch vụ</a></li>
+            <li><a href="recruitment.html">Tuyển Freelancers</a></li>
+            <li><a href="about.html">Về chúng tôi</a></li>
+        </ul>
+        <div class="auth-buttons">
+                          <a href="css/login.html" class="btn btn-outline">Đăng nhập</a>
+            <a href="css/register.html" class="btn btn-primary">Đăng ký</a>
+        </div>
+    </div>
+</header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <h1>Dịch vụ của chúng tôi</h1>
+            <p>Khám phá các dịch vụ chất lượng cao từ FreeViet để thúc đẩy sự nghiệp freelance của bạn</p>
+        </div>
+    </section>
+
+    <!-- Featured Services -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dịch vụ nổi bật</h2>
+                <p>Chúng tôi cung cấp các dịch vụ chuyên nghiệp để hỗ trợ cả freelancer và nhà tuyển dụng</p>
+            </div>
+            
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/500/300?text=Hồ Sơ Nổi Bật&bg=0091ff&fg=ffffff" alt="Hồ sơ nổi bật">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Hồ sơ nổi bật</h3>
+                        <p class="service-description">Đưa hồ sơ của bạn lên đầu danh sách tìm kiếm và nhận nhiều cơ hội hơn từ các nhà tuyển dụng tiềm năng.</p>
+                        <div class="service-price">499.000đ / tháng</div>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/500/300?text=Gói Đăng Tuyển&bg=ff9800&fg=ffffff" alt="Gói đăng tuyển">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Gói đăng tuyển</h3>
+                        <p class="service-description">Đăng tin tuyển dụng freelancer với gói dịch vụ ưu đãi và tiếp cận hàng nghìn freelancer chất lượng cao.</p>
+                        <div class="service-price">799.000đ / 10 tin</div>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/500/300?text=Xác Minh Kỹ Năng&bg=28a745&fg=ffffff" alt="Xác minh kỹ năng">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Xác minh kỹ năng</h3>
+                        <p class="service-description">Nâng cao uy tín của bạn với dịch vụ xác minh kỹ năng chuyên nghiệp từ các chuyên gia trong ngành.</p>
+                        <div class="service-price">299.000đ / kỹ năng</div>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tại sao chọn dịch vụ của chúng tôi</h2>
+                <p>Khám phá những lợi ích khi sử dụng dịch vụ từ FreeViet</p>
+            </div>
+            
+            <div class="features-container">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="feature-title">Chất lượng đảm bảo</h3>
+                    <p class="feature-description">Chúng tôi cam kết mang đến dịch vụ chất lượng cao với sự hài lòng 100% từ khách hàng.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Hỗ trợ 24/7</h3>
+                    <p class="feature-description">Đội ngũ hỗ trợ chuyên nghiệp luôn sẵn sàng giúp đỡ bạn mọi lúc, mọi nơi khi cần thiết.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Bảo mật thông tin</h3>
+                    <p class="feature-description">Thông tin cá nhân và thanh toán của bạn luôn được bảo mật tuyệt đối với công nghệ hiện đại.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Cập nhật liên tục</h3>
+                    <p class="feature-description">Dịch vụ luôn được cải tiến và cập nhật để đáp ứng nhu cầu ngày càng cao của người dùng.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Tăng cơ hội thành công</h3>
+                    <p class="feature-description">Sử dụng dịch vụ của chúng tôi giúp tăng tỷ lệ thành công trong việc tìm kiếm cơ hội làm việc.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="feature-title">Giá cả hợp lý</h3>
+                    <p class="feature-description">Chúng tôi cung cấp dịch vụ chất lượng với mức giá phù hợp với túi tiền của mọi đối tượng khách hàng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Gói dịch vụ</h2>
+                <p>Lựa chọn gói dịch vụ phù hợp với nhu cầu của bạn</p>
+            </div>
+            
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Cơ bản</h3>
+                        <div class="pricing-price">199.000đ</div>
+                        <div class="pricing-period">/ tháng</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 5 lượt ứng tuyển ưu tiên</li>
+                        <li><i class="fas fa-check"></i> Hiển thị hồ sơ nổi bật 3 ngày</li>
+                        <li><i class="fas fa-check"></i> Thông báo việc làm mới</li>
+                        <li><i class="fas fa-times"></i> Xác minh kỹ năng</li>
+                        <li><i class="fas fa-times"></i> Hỗ trợ tư vấn 1:1</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-outline">Đăng ký ngay</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header featured">
+                        <h3 class="pricing-title">Chuyên nghiệp</h3>
+                        <div class="pricing-price">499.000đ</div>
+                        <div class="pricing-period">/ tháng</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 15 lượt ứng tuyển ưu tiên</li>
+                        <li><i class="fas fa-check"></i> Hiển thị hồ sơ nổi bật 15 ngày</li>
+                        <li><i class="fas fa-check"></i> Thông báo việc làm mới</li>
+                        <li><i class="fas fa-check"></i> Xác minh 1 kỹ năng</li>
+                        <li><i class="fas fa-check"></i> Hỗ trợ tư vấn 1:1</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-primary">Đăng ký ngay</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Cao cấp</h3>
+                        <div class="pricing-price">899.000đ</div>
+                        <div class="pricing-period">/ tháng</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Ứng tuyển ưu tiên không giới hạn</li>
+                        <li><i class="fas fa-check"></i> Hiển thị hồ sơ nổi bật 30 ngày</li>
+                        <li><i class="fas fa-check"></i> Thông báo việc làm mới</li>
+                        <li><i class="fas fa-check"></i> Xác minh 3 kỹ năng</li>
+                        <li><i class="fas fa-check"></i> Hỗ trợ tư vấn 1:1 ưu tiên</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-outline">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Offering -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dịch vụ doanh nghiệp</h2>
+                <p>Giải pháp toàn diện cho doanh nghiệp cần tuyển dụng freelancer chất lượng cao</p>
+            </div>
+            
+            <div class="flex-container">
+                <div class="flex-column">
+                    <h3 style="margin-bottom: 20px; font-size: 24px;">Giải pháp tuyển dụng linh hoạt</h3>
+                    <p style="margin-bottom: 20px;">Chúng tôi cung cấp các giải pháp tuyển dụng freelancer đa dạng và linh hoạt, phù hợp với quy mô và nhu cầu cụ thể của từng doanh nghiệp.</p>
+                    
+                    <ul style="list-style: none; margin-bottom: 30px;">
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check" style="color: #0091ff; margin-right: 10px;"></i> Đăng tin tuyển dụng không giới hạn</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check" style="color: #0091ff; margin-right: 10px;"></i> Tiếp cận cộng đồng freelancer chất lượng cao</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check" style="color: #0091ff; margin-right: 10px;"></i> Tìm kiếm và lọc hồ sơ theo yêu cầu cụ thể</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check" style="color: #0091ff; margin-right: 10px;"></i> Hỗ trợ đánh giá và xác minh kỹ năng ứng viên</li>
+                        <li style="margin-bottom: 15px;"><i class="fas fa-check" style="color: #0091ff; margin-right: 10px;"></i> Quản lý dự án và thanh toán an toàn</li>
+                    </ul>
+                    
+                    <a href="#" class="btn btn-primary">Liên hệ tư vấn</a>
+                </div>
+                
+                <div class="flex-column">
+                    <div class="contact-form">
+                        <h3 style="margin-bottom: 20px; text-align: center;">Nhận tư vấn miễn phí</h3>
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label for="company" class="form-label">Tên công ty</label>
+                                <input type="text" id="company" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="form-label">Họ tên người liên hệ</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Số điện thoại</label>
+                                <input type="tel" id="phone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Nhu cầu tuyển dụng</label>
+                                <textarea id="message" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="form-submit">Gửi yêu cầu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Câu hỏi thường gặp</h2>
+                <p>Tìm hiểu thêm về dịch vụ của chúng tôi qua các câu hỏi thường gặp</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>Làm thế nào để đăng ký sử dụng dịch vụ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Để đăng ký sử dụng dịch vụ, bạn cần tạo tài khoản FreeViet, sau đó truy cập vào mục "Dịch vụ" và chọn gói dịch vụ phù hợp. Hoàn tất quá trình thanh toán và bạn có thể bắt đầu sử dụng dịch vụ

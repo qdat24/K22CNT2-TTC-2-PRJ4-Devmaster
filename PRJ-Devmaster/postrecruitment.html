@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeViet - Đăng tin tuyển dụng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5;}
+        
+        /* Header */
+        .header {background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px 0; position: sticky; top: 0; z-index: 100;}
+        .container {max-width: 1200px; margin: 0 auto; padding: 0 20px;}
+        .nav-container {display: flex; justify-content: space-between; align-items: center;}
+        .logo {font-size: 24px; font-weight: bold; color: #0091ff;}
+        .logo span {color: #ff9800;}
+        .nav-links {display: flex; list-style: none;}
+        .nav-links li {margin-left: 20px;}
+        .nav-links a {text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s;}
+        .nav-links a:hover, .nav-links a.active {color: #0091ff;}
+        
+        /* Buttons */
+        .auth-buttons {display: flex; gap: 10px;}
+        .btn {padding: 8px 16px; border-radius: 4px; font-weight: 500; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block;}
+        .btn-outline {border: 1px solid #0091ff; color: #0091ff; background: transparent;}
+        .btn-primary {background-color: #0091ff; color: #fff; border: 1px solid #0091ff;}
+        .btn:hover {opacity: 0.9; transform: translateY(-2px);}
+        .btn-large {padding: 12px 28px; font-size: 16px;}
+        
+        /* Hero */
+        .hero {background: linear-gradient(135deg, #0091ff 0%, #0070c5 100%); color: #fff; padding: 60px 0; text-align: center;}
+        .hero h1 {font-size: 36px; margin-bottom: 15px; font-weight: 700;}
+        .hero p {font-size: 18px; max-width: 700px; margin: 0 auto 25px; opacity: 0.9;}
+        
+        /* Post Job Form */
+        .section {padding: 50px 0;}
+        .section-light {background-color: #fff;}
+        .section-dark {background-color: #f9f9f9;}
+        .form-container {max-width: 800px; margin: 0 auto; background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.05);}
+        
+        .section-title {text-align: center; margin-bottom: 30px;}
+        .section-title h2 {font-size: 30px; color: #333; margin-bottom: 10px;}
+        .section-title p {color: #666; max-width: 700px; margin: 0 auto;}
+        
+        .form-group {margin-bottom: 25px;}
+        .form-label {display: block; margin-bottom: 8px; font-weight: 500; color: #444;}
+        .form-input, .form-textarea, .form-select {width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; transition: border 0.3s;}
+        .form-input:focus, .form-textarea:focus, .form-select:focus {outline: none; border-color: #0091ff; box-shadow: 0 0 0 3px rgba(0, 145, 255, 0.1);}
+        .form-textarea {resize: vertical; min-height: 120px;}
+        .form-select {background-color: #fff;}
+        
+        .form-checkbox-group {display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;}
+        .checkbox-item {display: flex; align-items: center; gap: 8px;}
+        .checkbox-item input {width: 18px; height: 18px; cursor: pointer;}
+        .checkbox-item label {cursor: pointer;}
+        
+        .form-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 20px;}
+        .form-full {grid-column: 1 / -1;}
+        
+        .price-options {display: flex; gap: 15px; margin-top: 10px;}
+        .price-option {flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 4px; text-align: center; cursor: pointer; transition: all 0.3s;}
+        .price-option:hover {border-color: #0091ff;}
+        .price-option.active {border-color: #0091ff; background-color: rgba(0, 145, 255, 0.05);}
+        .price-option-title {font-weight: 600; margin-bottom: 5px; color: #333;}
+        .price-option-description {font-size: 14px; color: #666;}
+        
+        .tag-input-container {position: relative;}
+        .tag-input {width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;}
+        .tag-input:focus {outline: none; border-color: #0091ff;}
+        .tags-container {display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;}
+        .tag {background-color: #f0f7ff; color: #0091ff; padding: 5px 10px; border-radius: 4px; font-size: 14px; display: flex; align-items: center;}
+        .tag-remove {margin-left: 5px; cursor: pointer; font-size: 12px;}
+        
+        .submit-container {text-align: center; margin-top: 30px;}
+        .submit-btn {background: linear-gradient(135deg, #0091ff 0%, #0070c5 100%); color: #fff; border: none; padding: 14px 30px; font-size: 16px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all 0.3s;}
+        .submit-btn:hover {transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 145, 255, 0.3);}
+        
+        /* Footer */
+        .footer {background-color: #333; color: #fff; padding: 40px 0 20px;}
+        .footer-content {display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px;}
+        .footer-column {width: 240px; margin-bottom: 20px;}
+        .footer-column h3 {font-size: 18px; margin-bottom: 15px; position: relative; padding-bottom: 10px;}
+        .footer-column h3::after {content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background-color: #0091ff;}
+        .footer-links {list-style: none;}
+        .footer-links li {margin-bottom: 10px;}
+        .footer-links a {color: #ccc; text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover {color: #0091ff;}
+        .copyright {text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 14px; color: #aaa;}
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .nav-container {flex-direction: column;}
+            .nav-links {margin: 15px 0; flex-wrap: wrap; justify-content: center;}
+            .nav-links li {margin: 5px 10px;}
+            .hero h1 {font-size: 28px;}
+            .form-grid {grid-template-columns: 1fr;}
+            .price-options {flex-direction: column;}
+            .footer-column {width: 100%; text-align: center;}
+            .footer-column h3::after {left: 50%; transform: translateX(-50%);}
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">Free<span>Viet</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="findjob.html">Tìm việc</a></li>
+                <li><a href="service.html">Dịch vụ</a></li>
+                <li><a href="recruitment.html" class="active">Tuyển Freelancers</a></li>
+                <li><a href="about.html">Về chúng tôi</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="css/login.html" class="btn btn-outline">Đăng nhập</a>
+                <a href="css/register.html" class="btn btn-primary">Đăng ký</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Đăng tin tuyển dụng Freelancer</h1>
+            <p>Đăng tin miễn phí và kết nối với hàng nghìn freelancer tài năng để hoàn thành dự án của bạn</p>
+        </div>
+    </section>
+
+    <!-- Post Job Form -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Thông tin dự án của bạn</h2>
+                <p>Hãy mô tả chi tiết để thu hút được những freelancer phù hợp nhất</p>
+            </div>
+            
+            <div class="form-container">
+                <form id="post-job-form">
+                    <div class="form-group">
+                        <label class="form-label">Tiêu đề dự án *</label>
+                        <input type="text" class="form-input" placeholder="Ví dụ: Thiết kế website bán hàng" required>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Danh mục *</label>
+                            <select class="form-select" required>
+                                <option value="">Chọn danh mục</option>
+                                <option value="it">Lập trình & IT</option>
+                                <option value="design">Thiết kế & Sáng tạo</option>
+                                <option value="marketing">Marketing & SEO</option>
+                                <option value="writing">Viết & Dịch thuật</option>
+                                <option value="data">Nhập liệu & Xử lý dữ liệu</option>
+                                <option value="video">Video & Animation</option>
+                                <option value="business">Kinh doanh & Tài chính</option>
+                                <option value="other">Lĩnh vực khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Danh mục phụ</label>
+                            <select class="form-select">
+                                <option value="">Chọn danh mục phụ</option>
+                                <option value="web">Web Development</option>
+                                <option value="mobile">Mobile App</option>
+                                <option value="desktop">Desktop App</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="cms">WordPress/CMS</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-full">
+                        <label class="form-label">Mô tả dự án *</label>
+                        <textarea class="form-textarea" placeholder="Mô tả chi tiết về dự án, yêu cầu cụ thể, kết quả mong muốn..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Kỹ năng yêu cầu *</label>
+                        <div class="tag-input-container">
+                            <input type="text" class="tag-input" id="skill-input" placeholder="Nhập kỹ năng và nhấn Enter">
+                        </div>
+                        <div class="tags-container" id="skills-container">
+                            <!-- Skills will be added dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Loại dự án *</label>
+                            <select class="form-select" required>
+                                <option value="">Chọn loại dự án</option>
+                                <option value="fixed">Trọn gói</option>
+                                <option value="hourly">Theo giờ</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Thời gian thực hiện *</label>
+                            <select class="form-select" required>
+                                <option value="">Chọn thời gian</option>
+                                <option value="less-week">Dưới 1 tuần</option>
+                                <option value="1-2-weeks">1-2 tuần</option>
+                                <option value="2-4-weeks">2-4 tuần</option>
+                                <option value="1-3-months">1-3 tháng</option>
+                                <option value="3-6-months">3-6 tháng</option>
+                                <option value="more-6-months">Trên 6 tháng</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ngân sách *</label>
+                        <div class="form-grid">
+                            <div>
+                                <select class="form-select" required>
+                                    <option value="fixed">Cố định</option>
+                                    <option value="range">Khoảng</option>
+                                    <option value="negotiable">Thương lượng</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="number" class="form-input" placeholder="Nhập số tiền (VNĐ)" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Loại hình làm việc</label>
+                        <div class="form-checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="remote" checked>
+                                <label for="remote">Từ xa</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="on-site">
+                                <label for="on-site">Tại văn phòng</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hybrid">
+                                <label for="hybrid">Kết hợp</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Địa điểm (nếu làm việc tại văn phòng)</label>
+                        <select class="form-select">
+                            <option value="">Chọn địa điểm</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="hcm">TP. Hồ Chí Minh</option>
+                            <option value="danang">Đà Nẵng</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Mức độ kinh nghiệm yêu cầu</label>
+                        <div class="form-checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="entry">
+                                <label for="entry">Mới vào nghề</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="intermediate" checked>
+                                <label for="intermediate">Trung cấp</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="expert" checked>
+                                <label for="expert">Chuyên gia</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tùy chọn đăng tin</label>
+                        <div class="price-options">
+                            <div class="price-option active">
+                                <div class="price-option-title">Miễn phí</div>
+                                <div class="price-option-description">Tiếp cận tới các freelancer tại FreeViet</div>
+                            </div>
+                            <div class="price-option">
+                                <div class="price-option-title">Tiêu biểu - 100.000đ</div>
+                                <div class="price-option-description">Đẩy tin lên đầu danh sách trong 3 ngày</div>
+                            </div>
+                            <div class="price-option">
+                                <div class="price-option-title">Nổi bật - 200.000đ</div>
+                                <div class="price-option-description">Hiển thị nổi bật với màu sắc khác trong 7 ngày</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">Tôi đã đọc và đồng ý với <a href="#" style="color: #0091ff;">Điều khoản sử dụng</a> của FreeViet</label>
+                        </div>
+                    </div>
+                    
+                    <div class="submit-container">
+                        <button type="submit" class="submit-btn">Đăng tin tuyển dụng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FreeViet</h3>
+                    <p>Nền tảng kết nối freelancer và nhà tuyển dụng hàng đầu tại Việt Nam.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liên kết nhanh</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Tìm việc</a></li>
+                        <li><a href="#">Tuyển Freelancer</a></li>
+                        <li><a href="#">Về chúng tôi</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Danh mục</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Lập trình & IT</a></li>
+                        <li><a href="#">Thiết kế & Sáng tạo</a></li>
+                        <li><a href="#">Marketing & SEO</a></li>
+                        <li><a href="#">Viết & Dịch thuật</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope"></i> info@freeviet.vn</li>
+                    </ul>
+                    <div class="social-links" style="margin-top: 15px;">
+                        <a href="#" style="color: #fff; margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" style="color: #fff; margin-right: 15px;"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" style="color: #fff;"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 FreeViet. Tất cả các quyền được bảo lưu.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Skills tags functionality
+            const skillInput = document.getElementById('skill-input');
+            const skillsContainer = document.getElementById('skills-container');
+            
+            skillInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    
+                    const skill = this.value.trim();
+                    if (skill) {
+                        addSkillTag(skill);
+                        this.value = '';
+                    }
+                }
+            });
+            
+            function addSkillTag(skill) {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.innerHTML = `
+                    ${skill}
+                    <span class="tag-remove"><i class="fas fa-times"></i></span>
+                `;
+                
+                const removeBtn = tag.querySelector('.tag-remove');
+                removeBtn.addEventListener('click', function() {
+                    tag.remove();
+                });
+                
+                skillsContainer.appendChild(tag);
+            }
+            
+            // Add some initial example skills
+            addSkillTag('HTML/CSS');
+            addSkillTag('JavaScript');
+            addSkillTag('Responsive Design');
+            
+            // Price options selection
+            const priceOptions = document.querySelectorAll('.price-option');
+            priceOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    priceOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Form submission
+            const form = document.getElementById('post-job-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Đăng tin tuyển dụng thành công! Tin của bạn sẽ được kiểm duyệt và hiển thị trong vòng 24 giờ.');
+            });
+        });
+    </script>
+</body>
+</html>
