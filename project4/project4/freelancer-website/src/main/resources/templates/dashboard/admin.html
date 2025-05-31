@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #f39c12;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f39c12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .welcome-section h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-section p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .stat-icon.users { background: #3498db; }
+        .stat-icon.jobs { background: #27ae60; }
+        .stat-icon.employers { background: #e74c3c; }
+        .stat-icon.seekers { background: #f39c12; }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #333;
+            margin: 0;
+        }
+
+        .view-all-btn {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .item-list {
+            padding: 0;
+        }
+
+        .item {
+            padding: 15px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .item-info p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .item-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .actions-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 25px;
+        }
+
+        .action-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            background: #2c3e50;
+        }
+
+        .action-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .action-desc {
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a th:href="@{/dashboard/admin}" class="logo">Freelancer<span>VN</span> Admin</a>
+            
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 500;">Admin FreelancerVN</div>
+                        <div style="font-size: 12px; opacity: 0.8;">Quản trị viên</div>
+                    </div>
+                </div>
+                <a th:href="@{/logout}" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1>Chào mừng Admin!, Admin FreelancerVN!</h1>
+            <p>Quản lý toàn bộ hệ thống FreelancerVN - Users, Jobs, và Analytics.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon users">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number" th:text="${totalUsers ?: 3}">3</div>
+                <div class="stat-label">Tổng người dùng</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon jobs">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="stat-number" th:text="${totalJobs ?: 3}">3</div>
+                <div class="stat-label">Tổng việc làm</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon employers">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-number" th:text="${totalEmployers ?: 1}">1</div>
+                <div class="stat-label">Nhà tuyển dụng</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon seekers">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-number" th:text="${totalJobSeekers ?: 1}">1</div>
+                <div class="stat-label">Người tìm việc</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Recent Users -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Người dùng mới</h2>
+                    <a href="#" class="view-all-btn">Xem tất cả</a>
+                </div>
+                
+                <div class="item-list" th:if="${recentUsers != null and !recentUsers.isEmpty()}">
+                    <div th:each="user : ${recentUsers}" class="item">
+                        <div class="item-info">
+                            <h4 th:text="${user.fullName}">Admin FreelancerVN</h4>
+                            <p th:text="${user.email}">admin@freelancervn.com</p>
+                        </div>
+                        <div class="item-badge" th:text="${user.userType.name() == 'job_seeker' ? 'Job Seeker' : 'Employer'}">
+                            Employer
+                        </div>
+                    </div>
+                </div>
+                
+                <div th:if="${recentUsers == null or recentUsers.isEmpty()}" class="item">
+                    <div class="item-info">
+                        <h4>Admin FreelancerVN</h4>
+                        <p>admin@freelancervn.com</p>
+                    </div>
+                    <div class="item-badge">Employer</div>
+                </div>
+            </div>
+
+            <!-- Recent Jobs -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Việc làm mới</h2>
+                    <a href="#" class="view-all-btn">Xem tất cả</a>
+                </div>
+                
+                <div class="item-list" th:if="${recentJobs != null and !recentJobs.isEmpty()}">
+                    <div th:each="job : ${recentJobs}" class="item">
+                        <div class="item-info">
+                            <h4 th:text="${job.title}">Data Entry với ý tưởng sáng tạo Excel</h4>
+                            <p>
+                                <span th:if="${job.budgetMin != null and job.budgetMax != null}">
+                                    <span th:text="${#numbers.formatInteger(job.budgetMin, 0, 'COMMA')}">5,000,000</span> - 
+                                    <span th:text="${#numbers.formatInteger(job.budgetMax, 0, 'COMMA')}">8,000,000</span> VND
+                                </span>
+                                <span th:unless="${job.budgetMin != null and job.budgetMax != null}">
+                                    Thỏa thuận
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item-badge">Hoạt động</div>
+                    </div>
+                </div>
+                
+                <div th:if="${recentJobs == null or recentJobs.isEmpty()}" class="item">
+                    <div class="item-info">
+                        <h4>Data Entry với ý tưởng sáng tạo Excel</h4>
+                        <p>5,000,000 - 8,000,000 VND</p>
+                    </div>
+                    <div class="item-badge">Hoạt động</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Actions -->
+        <div class="actions-section">
+            <div class="section-header">
+                <h2 class="section-title">Quản lý hệ thống</h2>
+            </div>
+            
+            <div class="actions-grid">
+                <a th:href="@{/admin/users}" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <div class="action-title">Quản lý Users</div>
+                    <div class="action-desc">Xem, sửa, xóa người dùng</div>
+                </a>
+                
+                <a th:href="@{/admin/jobs}" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="action-title">Quản lý Jobs</div>
+                    <div class="action-desc">Kiểm duyệt việc làm</div>
+                </a>
+                
+                <a href="#" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-title">Thống kê</div>
+                    <div class="action-desc">Báo cáo và analytics</div>
+                </a>
+                
+                <a href="#" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="action-title">Cài đặt</div>
+                    <div class="action-desc">Cấu hình hệ thống</div>
+                </a>
+
+                <a th:href="@{/create-more-demo-data}" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="action-title">Setup Demo</div>
+                    <div class="action-desc">Tạo dữ liệu demo</div>
+                </a>
+
+                <a href="#" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <div class="action-title">System Test</div>
+                    <div class="action-desc">Kiểm tra hệ thống</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

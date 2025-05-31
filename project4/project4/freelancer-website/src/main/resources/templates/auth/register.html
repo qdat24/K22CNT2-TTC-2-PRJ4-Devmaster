@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - FreelancerVN</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+            color: white;
+            text-decoration: none;
+        }
+
+        .register-header {
+            margin-bottom: 40px;
+        }
+
+        .register-header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .register-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .role-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .role-card {
+            background: white;
+            border: 3px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            border-color: #3498db;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .role-card.employer .role-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .role-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .role-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .role-features {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .role-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .role-features li {
+            padding: 5px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .role-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .role-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .role-card.employer .role-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .role-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            color: white;
+        }
+
+        .login-link {
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .role-selection {
+                grid-template-columns: 1fr;
+            }
+            
+            .register-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a th:href="@{/home}" class="home-link">
+        <i class="fas fa-arrow-left"></i> Về trang chủ
+    </a>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Chọn loại tài khoản</h1>
+            <p>Hãy chọn loại tài khoản phù hợp với nhu cầu của bạn</p>
+        </div>
+
+        <div class="role-selection">
+            <!-- Job Seeker Card -->
+            <a th:href="@{/register/job-seeker}" class="role-card job-seeker">
+                <div class="role-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3 class="role-title">Người tìm việc</h3>
+                <p class="role-description">
+                    Dành cho freelancer và người tìm việc làm online
+                </p>
+                <div class="role-features">
+                    <ul>
+                        <li>Tìm kiếm và ứng tuyển công việc</li>
+                        <li>Tạo hồ sơ cá nhân chuyên nghiệp</li>
+                        <li>Nhận thông báo việc làm phù hợp</li>
+                        <li>Chat trực tiếp với nhà tuyển dụng</li>
+                        <li>Quản lý đơn ứng tuyển</li>
+                    </ul>
+                </div>
+                <div class="role-btn">
+                    Đăng ký Người tìm việc
+                </div>
+            </a>
+
+            <!-- Employer Card -->
+            <a th:href="@{/register/employer}" class="role-card employer">
+                <div class="role-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3 class="role-title">Nhà tuyển dụng</h3>
+                <p class="role-description">
+                    Dành cho công ty và cá nhân cần thuê freelancer
+                </p>
+                <div class="role-features">
+                    <ul>
+                        <li>Đăng tin tuyển dụng miễn phí</li>
+                        <li>Tìm kiếm ứng viên phù hợp</li>
+                        <li>Quản lý đơn ứng tuyển</li>
+                        <li>Đánh giá và phản hồi ứng viên</li>
+                        <li>Dashboard thống kê chi tiết</li>
+                    </ul>
+                </div>
+                <div class="role-btn">
+                    Đăng ký Nhà tuyển dụng
+                </div>
+            </a>
+        </div>
+
+        <div class="login-link">
+            Đã có tài khoản? <a th:href="@{/login}">Đăng nhập ngay</a>
+        </div>
+    </div>
+</body>
+</html>

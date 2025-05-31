@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelancerVN - Nền tảng kết nối Freelancer và Nhà tuyển dụng</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover, 
+        .nav-links li a.active {
+            color: #3498db;
+        }
+
+        /* Auth Buttons Styles */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-outline {
+            border: 2px solid #3498db;
+            color: #3498db;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 15px 25px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: white;
+            padding: 60px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .stat-text {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Latest Jobs Section */
+        .latest-jobs {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .job-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .job-company {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .job-description {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .job-budget {
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .job-type {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .job-tag {
+            background-color: #3498db;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .job-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-posted {
+            font-style: italic;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .category-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .category-jobs {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .step-description {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-light {
+            background-color: white;
+            color: #3498db;
+            border: none;
+        }
+
+        .btn-light:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-light {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+        }
+
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 3px;
+            background-color: #3498db;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #95a5a6;
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            .nav-links {
+                margin: 15px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .search-bar input {
+                border-radius: 6px;
+                margin-bottom: 10px;
+            }
+            
+            .search-bar button {
+                border-radius: 6px;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 20px;
+            }
+            
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav-container">
+            <a th:href="@{/home}" style="text-decoration: none;">
+                <div class="logo">Freelancer<span>VN</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a th:href="@{/home}" class="active">Trang chủ</a></li>
+                <li><a th:href="@{/jobs}">Tìm việc</a></li>
+                <li><a href="#categories">Danh mục</a></li>
+                <li><a href="#about">Về chúng tôi</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline">Đăng nhập</a>
+                <a href="#" class="btn btn-primary">Đăng ký</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Kết nối Freelancer và Nhà tuyển dụng Việt Nam</h1>
+            <p>Nền tảng việc làm freelance uy tín với <span th:text="${totalUsers}">0</span>+ freelancer và nhà tuyển dụng tin dùng</p>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm việc làm, kỹ năng...">
+                <button onclick="performSearch()">Tìm kiếm</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" th:text="${totalJobSeekers}">0</div>
+                <div class="stat-text">Freelancer</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" th:text="${totalJobs}">0</div>
+                <div class="stat-text">Việc làm</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" th:text="${totalEmployers}">0</div>
+                <div class="stat-text">Nhà tuyển dụng</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-text">Độ hài lòng</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Latest Jobs Section -->
+    <section class="latest-jobs">
+        <h2 class="section-title">Việc làm mới nhất</h2>
+        
+        <div class="jobs-grid">
+            <div th:each="job : ${latestJobs}" class="job-card" th:onclick="'window.location.href=\'/job/' + ${job.id} + '\''">
+                <h3 class="job-title" th:text="${job.title}">Job Title</h3>
+                <div class="job-company" th:text="'ID: ' + ${job.employerId}">Company Name</div>
+                
+                <div class="job-description" th:text="${job.description}">
+                    Job description here...
+                </div>
+                
+                <div class="job-meta">
+                    <div class="job-budget" th:if="${job.budgetMin != null and job.budgetMax != null}">
+                        <span th:text="${#numbers.formatInteger(job.budgetMin, 0, 'COMMA')}">0</span> - 
+                        <span th:text="${#numbers.formatInteger(job.budgetMax, 0, 'COMMA')}">0</span> VND
+                    </div>
+                    <div class="job-budget" th:unless="${job.budgetMin != null and job.budgetMax != null}">
+                        Thỏa thuận
+                    </div>
+                    <div class="job-type" th:text="${job.jobType}">full-time</div>
+                </div>
+                
+                <div class="job-tags" th:if="${job.skillsRequired != null}">
+                    <span th:each="skill, iterStat : ${job.skillsRequired.split(',')}" 
+                          class="job-tag" 
+                          th:text="${skill.trim()}"
+                          th:if="${iterStat.index < 3}">Skill</span>
+                </div>
+                
+                <div class="job-footer">
+                    <div class="job-location">
+                        <span>📍</span>
+                        <span th:text="${job.location != null ? job.location : 'Remote'}">Location</span>
+                        <span th:if="${job.isRemote}" style="color: #27ae60; margin-left: 5px;">• Remote</span>
+                    </div>
+                    <div class="job-posted">
+                        <span th:text="${#temporals.format(job.createdAt, 'dd/MM/yyyy')}">01/01/2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a th:href="@{/jobs}" class="btn btn-primary">Xem tất cả việc làm</a>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Danh mục Dịch vụ</h2>
+        
+        <div class="categories-grid">
+            <a th:href="@{/jobs(search='React')}" class="category-card">
+                <div class="category-icon">💻</div>
+                <h3 class="category-title">Lập trình & CNTT</h3>
+                <div class="category-jobs" id="programming-count">Đang tải...</div>
+            </a>
+            
+            <a th:href="@{/jobs(search='Design')}" class="category-card">
+                <div class="category-icon">🎨</div>
+                <h3 class="category-title">Thiết kế đồ họa</h3>
+                <div class="category-jobs" id="design-count">Đang tải...</div>
+            </a>
+            
+            <a th:href="@{/jobs(search='Marketing')}" class="category-card">
+                <div class="category-icon">📱</div>
+                <h3 class="category-title">Marketing Online</h3>
+                <div class="category-jobs" id="marketing-count">Đang tải...</div>
+            </a>
+            
+            <a th:href="@{/jobs(search='Content')}" class="category-card">
+                <div class="category-icon">✍️</div>
+                <h3 class="category-title">Viết lách & Content</h3>
+                <div class="category-jobs" id="writing-count">Đang tải...</div>
+            </a>
+            
+            <a th:href="@{/jobs(search='Excel')}" class="category-card">
+                <div class="category-icon">📊</div>
+                <h3 class="category-title">Xử lý dữ liệu</h3>
+                <div class="category-jobs" id="data-count">Đang tải...</div>
+            </a>
+            
+            <a th:href="@{/jobs(search='Mobile')}" class="category-card">
+                <div class="category-icon">📱</div>
+                <h3 class="category-title">Mobile App</h3>
+                <div class="category-jobs" id="mobile-count">Đang tải...</div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="about">
+        <h2 class="section-title">Cách thức hoạt động</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Đăng công việc</h3>
+                <p class="step-description">Mô tả chi tiết công việc, đặt ngân sách và thời hạn. Các freelancer sẽ nhận được thông báo về dự án phù hợp.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Nhận hồ sơ ứng tuyển</h3>
+                <p class="step-description">Freelancer sẽ nộp hồ sơ ứng tuyển. Xem profile, đánh giá và chọn người phù hợp nhất với dự án.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Hợp tác & Thanh toán</h3>
+                <p class="step-description">Làm việc trực tiếp với freelancer, theo dõi tiến độ và thanh toán an toàn qua hệ thống.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2>Bắt đầu dự án của bạn ngay hôm nay</h2>
+            <p>Đăng công việc miễn phí và kết nối với các freelancer tài năng trong vòng vài phút</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-light">Đăng công việc</a>
+                <a href="#" class="btn btn-outline-light">Đăng ký làm Freelancer</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>FreelancerVN</h3>
+                <ul class="footer-links">
+                    <li><a th:href="@{/home}">Trang chủ</a></li>
+                    <li><a th:href="@{/jobs}">Tìm việc làm</a></li>
+                    <li><a href="#">Về chúng tôi</a></li>
+                    <li><a href="#">Điều khoản</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Dành cho Freelancer</h3>
+                <ul class="footer-links">
+                    <li><a th:href="@{/jobs}">Tìm việc</a></li>
+                    <li><a href="#">Tạo hồ sơ</a></li>
+                    <li><a href="#">Mẹo tìm việc</a></li>
+                    <li><a href="#">Thành công</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Dành cho Nhà tuyển dụng</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Đăng việc</a></li>
+                    <li><a href="#">Tìm Freelancer</a></li>
+                    <li><a href="#">Quản lý dự án</a></li>
+                    <li><a href="#">Thanh toán</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Hỗ trợ</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Trung tâm trợ giúp</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 FreelancerVN. Tất cả các quyền được bảo lưu.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = '/search?q=' + encodeURIComponent(query);
+            }
+        }
+        
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Load category job counts
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategoryCounts();
+        });
+        
+        function loadCategoryCounts() {
+            const categories = [
+                { keyword: 'React', elementId: 'programming-count' },
+                { keyword: 'Design', elementId: 'design-count' },
+                { keyword: 'Marketing', elementId: 'marketing-count' },
+                { keyword: 'Content', elementId: 'writing-count' },
+                { keyword: 'Excel', elementId: 'data-count' },
+                { keyword: 'Mobile', elementId: 'mobile-count' }
+            ];
+            
+            categories.forEach(category => {
+                fetch(`/api/jobs/search?keyword=${category.keyword}`)
+                    .then(response => response.json())
+                    .then(jobs => {
+                        const count = jobs.length;
+                        document.getElementById(category.elementId).textContent = `${count} việc làm`;
+                    })
+                    .catch(error => {
+                        console.error('Error loading category count:', error);
+                        document.getElementById(category.elementId).textContent = '0 việc làm';
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

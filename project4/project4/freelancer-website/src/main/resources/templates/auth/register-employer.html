@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký Nhà tuyển dụng - FreelancerVN</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+            color: white;
+            text-decoration: none;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .register-header .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+        }
+
+        .register-header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .register-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .register-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #fcc;
+        }
+
+        .login-link {
+            text-align: center;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            color: #c0392b;
+            text-decoration: underline;
+        }
+
+        .benefits {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .benefits h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits li {
+            padding: 5px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <a th:href="@{/home}" class="home-link">
+        <i class="fas fa-arrow-left"></i> Về trang chủ
+    </a>
+
+    <div class="register-container">
+        <div class="register-header">
+            <div class="icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <h1>Đăng ký Nhà tuyển dụng</h1>
+            <p>Tìm kiếm và thuê freelancer tài năng cho dự án của bạn</p>
+        </div>
+
+        <!-- Error Message -->
+        <div th:if="${error}" class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span th:text="${error}">Error message</span>
+        </div>
+
+        <!-- Benefits -->
+        <div class="benefits">
+            <h3>Lợi ích dành cho bạn:</h3>
+            <ul>
+                <li>Đăng tin tuyển dụng miễn phí</li>
+                <li>Tiếp cận hàng nghìn freelancer tài năng</li>
+                <li>Quản lý đơn ứng tuyển dễ dàng</li>
+                <li>Dashboard thống kê chi tiết</li>
+            </ul>
+        </div>
+
+        <form th:action="@{/register/employer}" method="post">
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="Nhập email công ty/cá nhân">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu *</label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Tạo mật khẩu (tối thiểu 6 ký tự)">
+            </div>
+
+            <div class="form-group">
+                <label for="fullName">Họ tên/Tên công ty *</label>
+                <input type="text" id="fullName" name="fullName" required 
+                       placeholder="Nhập tên người đại diện hoặc tên công ty">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" name="phone" 
+                       placeholder="Nhập số điện thoại liên hệ">
+            </div>
+
+            <button type="submit" class="register-btn">
+                <i class="fas fa-building"></i> Đăng ký Nhà tuyển dụng
+            </button>
+        </form>
+
+        <div class="login-link">
+            Đã có tài khoản? <a th:href="@{/login}">Đăng nhập ngay</a>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const password = document.getElementById('password');
+            
+            form.addEventListener('submit', function(e) {
+                if (password.value.length < 6) {
+                    e.preventDefault();
+                    alert('Mật khẩu phải có ít nhất 6 ký tự!');
+                    password.focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
